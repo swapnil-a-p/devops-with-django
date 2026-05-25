@@ -1,38 +1,74 @@
-# django-todo
-A simple todo app built with django
+# DevOps With Django
 
-![todo App](https://raw.githubusercontent.com/shreys7/django-todo/develop/staticfiles/todoApp.png)
-### Setup
-To get this repository, run the following command inside your git enabled terminal
+A small Django to-do application used as a deployment and DevOps practice project.
+
+This repository is intentionally simple. The goal is not product complexity; it is to use a familiar Python web app as a base for environment setup, deployment experimentation, and infrastructure workflow practice.
+
+## What It Includes
+
+- Django 4.x application
+- basic CRUD-style to-do workflow
+- server-rendered templates
+- SQLite-backed local development setup
+- static asset handling
+
+## Tech Stack
+
+- Python
+- Django
+- SQLite
+- HTML / CSS
+
+## Project Structure
+
+- `manage.py` — Django management entrypoint
+- `todoApp/` — project configuration and root URLs
+- `todos/` — application models, views, templates, and routes
+- `staticfiles/` — static assets
+
+## Local Setup
+
+1. Create and activate a virtual environment.
+
 ```bash
-$ git clone https://github.com/shreys7/django-todo.git
+python -m venv .venv
+source .venv/bin/activate
 ```
-You will need django to be installed in you computer to run this app. Head over to https://www.djangoproject.com/download/ for the download guide
 
-Once you have downloaded django, go to the cloned repo directory and run the following command
+2. Install dependencies.
 
 ```bash
-$ python manage.py makemigrations
+pip install -r requirements.txt
 ```
 
-This will create all the migrations file (database migrations) required to run this App.
-
-Now, to apply this migrations run the following command
-```bash
-$ python manage.py migrate
-```
-
-One last step and then our todo App will be live. We need to create an admin user to run this App. On the terminal, type the following command and provide username, password and email for the admin user
-```bash
-$ python manage.py createsuperuser
-```
-
-That was pretty simple, right? Now let's make the App live. We just need to start the server now and then we can start using our simple todo App. Start the server by following command
+3. Run migrations.
 
 ```bash
-$ python manage.py runserver
+python manage.py migrate
 ```
 
-Once the server is hosted, head over to http://127.0.0.1:8000/todos for the App.
+4. Start the development server.
 
-Cheers and Happy Coding :)
+```bash
+python manage.py runserver
+```
+
+5. Open the app locally at:
+
+```text
+http://127.0.0.1:8000/todos
+```
+
+## Why This Repo Exists
+
+This project was used as a lightweight Django base for practicing deployment-oriented workflows such as:
+
+- environment bootstrapping
+- app packaging
+- static file handling
+- branch-based deployment experimentation
+- infrastructure and hosting practice around a Python web app
+
+## Notes
+
+This is an older practice project, not an actively developed product. It is best viewed as a compact Django deployment sandbox rather than a production-grade application.
