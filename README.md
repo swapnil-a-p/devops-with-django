@@ -40,6 +40,34 @@ The application itself is intentionally simple: a server-rendered to-do workflow
 - `.github/workflows/ci.yml` — basic validation workflow
 - `docs/aws-deployment.md` — target AWS deployment notes
 
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    DEV[Developer]
+    GH[GitHub repository]
+    CI[GitHub Actions CI]
+    IMG[Docker image]
+    ECR[Amazon ECR]
+    ECS[Amazon ECS Fargate service]
+    ALB[Application Load Balancer]
+    APP[Django application]
+    CW[CloudWatch logs]
+    CFG[Secrets Manager / Parameter Store]
+    DB[(SQLite local now\nRDS later)]
+
+    DEV --> GH
+    GH --> CI
+    CI --> IMG
+    IMG --> ECR
+    ECR --> ECS
+    ALB --> ECS
+    ECS --> APP
+    APP --> DB
+    ECS --> CW
+    CFG --> ECS
+```
+
 ## Local Setup
 
 1. Create and activate a virtual environment.

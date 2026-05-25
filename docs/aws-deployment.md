@@ -13,6 +13,26 @@ This repository is intentionally lightweight, but it can still be used to demons
 - AWS Systems Manager Parameter Store or Secrets Manager for runtime configuration
 - Amazon RDS PostgreSQL for a production database if the application evolves beyond SQLite
 
+```mermaid
+flowchart LR
+    GH[GitHub]
+    ACT[GitHub Actions]
+    ECR[Amazon ECR]
+    ALB[Application Load Balancer]
+    ECS[Amazon ECS Fargate]
+    CW[CloudWatch]
+    SEC[Secrets Manager / Parameter Store]
+    RDS[(Amazon RDS PostgreSQL)]
+
+    GH --> ACT
+    ACT --> ECR
+    ECR --> ECS
+    ALB --> ECS
+    ECS --> CW
+    SEC --> ECS
+    ECS --> RDS
+```
+
 ## Recommended Deployment Flow
 
 1. Developer pushes to `main`
