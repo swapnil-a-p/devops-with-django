@@ -44,17 +44,26 @@ The application itself is intentionally simple: a server-rendered to-do workflow
 
 ```mermaid
 flowchart LR
+    classDef source fill:#eef6ff,stroke:#4d8dff,color:#133768,stroke-width:2px;
+    classDef ci fill:#18324d,stroke:#67c5ff,color:#eefbff,stroke-width:2px;
+    classDef runtime fill:#17382c,stroke:#63d3a0,color:#effff7,stroke-width:2px;
+    classDef infra fill:#2e243d,stroke:#c59aff,color:#fbf3ff,stroke-width:2px;
+    classDef data fill:#3b2f16,stroke:#ffca6b,color:#fff8eb,stroke-width:2px;
+
     DEV[Developer]
     GH[GitHub repository]
     CI[GitHub Actions CI]
     IMG[Docker image]
-    ECR[Amazon ECR]
-    ECS[Amazon ECS Fargate service]
-    ALB[Application Load Balancer]
-    APP[Django application]
-    CW[CloudWatch logs]
-    CFG[Secrets Manager / Parameter Store]
-    DB[(SQLite local now\nRDS later)]
+
+    subgraph AWS[AWS Runtime]
+        ECR[Amazon ECR]
+        ALB[Application Load Balancer]
+        ECS[Amazon ECS Fargate service]
+        APP[Django application]
+        CW[CloudWatch logs]
+        CFG[Secrets Manager /<br/>Parameter Store]
+        DB[(SQLite local now /<br/>RDS later)]
+    end
 
     DEV --> GH
     GH --> CI
@@ -66,6 +75,12 @@ flowchart LR
     APP --> DB
     ECS --> CW
     CFG --> ECS
+
+    class DEV,GH source;
+    class CI,IMG ci;
+    class ECS,APP runtime;
+    class ECR,ALB,CW,CFG infra;
+    class DB data;
 ```
 
 ## Local Setup

@@ -15,14 +15,23 @@ This repository is intentionally lightweight, but it can still be used to demons
 
 ```mermaid
 flowchart LR
+    classDef source fill:#eef6ff,stroke:#4d8dff,color:#133768,stroke-width:2px;
+    classDef pipeline fill:#18324d,stroke:#67c5ff,color:#eefbff,stroke-width:2px;
+    classDef runtime fill:#17382c,stroke:#63d3a0,color:#effff7,stroke-width:2px;
+    classDef infra fill:#2e243d,stroke:#c59aff,color:#fbf3ff,stroke-width:2px;
+    classDef data fill:#3b2f16,stroke:#ffca6b,color:#fff8eb,stroke-width:2px;
+
     GH[GitHub]
     ACT[GitHub Actions]
-    ECR[Amazon ECR]
-    ALB[Application Load Balancer]
-    ECS[Amazon ECS Fargate]
-    CW[CloudWatch]
-    SEC[Secrets Manager / Parameter Store]
-    RDS[(Amazon RDS PostgreSQL)]
+
+    subgraph AWS[Target AWS Environment]
+        ECR[Amazon ECR]
+        ALB[Application Load Balancer]
+        ECS[Amazon ECS Fargate]
+        CW[CloudWatch]
+        SEC[Secrets Manager /<br/>Parameter Store]
+        RDS[(Amazon RDS PostgreSQL)]
+    end
 
     GH --> ACT
     ACT --> ECR
@@ -31,6 +40,12 @@ flowchart LR
     ECS --> CW
     SEC --> ECS
     ECS --> RDS
+
+    class GH source;
+    class ACT pipeline;
+    class ECS runtime;
+    class ECR,ALB,CW,SEC infra;
+    class RDS data;
 ```
 
 ## Recommended Deployment Flow
